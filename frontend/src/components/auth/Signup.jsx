@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Navbar from "../shared/Navbar";
 import { Label } from "../ui/label";
 import { Input} from "../ui/input";
@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
+import Login from "./Login";
+import { Button } from "../ui/button";
 function Signup() {
 
   const [input,setInput]=useState({
@@ -43,14 +45,17 @@ function Signup() {
     try{
       const res=await axios.post(`${USER_API_END_POINT}/register`,formData,{
         headers:{
-          "Content-Type": "multipart/form-data",
+          'Content-Type': "multipart/form-data",
         },
         withCredentials:true,
       });
 
       if(res.data.success){
+        console.log("Signup successful, navigating to login...");
         navigate("/login");
         toast.success(res.data.message);
+      } else{
+         console.log("Signup failed:", res.data);
       }
     }catch(error){
       console.error(error);
@@ -119,7 +124,7 @@ function Signup() {
             </div>
           </div>
 
-          <button type="submit" className="w-full my-4 p-2 bg-purple-700 text-white">Signup</button>
+          <Button type="submit" className="w-full my-4 p-2 bg-purple-700 text-white">Signup</Button>
           <span className="text-sm">Already have an account? <Link to="/login" className="text-blue-600">Login</Link></span>
         </form>
       </div>

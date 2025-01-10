@@ -7,6 +7,7 @@ import Footer from './shared/Footer'
 import useGetAllInternships from '@/hooks/useGetAllInternships'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 function Home() {
   useGetAllInternships();
   const {user}=useSelector(store=>store.auth);

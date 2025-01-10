@@ -1,5 +1,5 @@
-import { setSingleCompany } from '@redux/companySlice'
-import { setAllJobs } from '@/redux/internshipSlice'
+import { setSingleCompany } from '@/redux/CompanySlice'
+import { setAllInternships } from '@/redux/internshipSlice'
 import { COMPANY_API_END_POINT, INTERNSHIP_API_END_POINT } from '@/utils/constant'
 import axios from 'axios'
 import { useEffect } from 'react'

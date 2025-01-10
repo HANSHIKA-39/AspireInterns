@@ -1,6 +1,7 @@
 import { configureStore} from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
 import internshipSlice from "./internshipSlice";
+import CompanySlice from "./companySlice";
 import { combineReducers } from "@reduxjs/toolkit";
 import {
     persistStore,
@@ -18,8 +19,8 @@ import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({
     auth: authSlice,
-    internships: internshipSlice,
-    company:companySlice
+    internship: internshipSlice,
+    company:CompanySlice
 });
 
 const persistConfig = {
@@ -28,8 +29,11 @@ const persistConfig = {
     version:1,
 
 }
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store=configureStore({
-    reducer: persistReducer,
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: {
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
@@ -37,5 +41,8 @@ const store=configureStore({
     })
  
 });
+
+export const persistor = persistStore(store);
+
 
 export default store;
